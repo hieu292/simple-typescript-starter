@@ -51,12 +51,17 @@ export default class PureSolution implements ISolution {
       this.isLastChildrenOfRootNode = graphNode.id === lastIdChildrenOfRoot;
     }
 
-    if (currentChildrenLength === 0) {
+    let parentString = parentGraphString;
+    if (level !== 0 && level !== 1) {
       if (order < parentLength) {
-        return childString + parentGraphString; // is child
+        parentString = childString + parentGraphString; // is child
       } else {
-        return finalChildString + parentGraphString; // is last children
+        parentString = finalChildString + parentGraphString; // is last children
       }
+    }
+
+    if (currentChildrenLength === 0) {
+      return parentString;
     } else {
       const currentLevel = level + 1;
       let orderIndex = 0;
@@ -77,7 +82,7 @@ export default class PureSolution implements ISolution {
             currentChildrenLength,
           )
         );
-      }, parentGraphString);
+      }, parentString);
     }
   }
 
@@ -94,8 +99,8 @@ export default class PureSolution implements ISolution {
     }
     let result = this.isLastChildrenOfRootNode ? spaceString : crossLeftString;
 
-    for (let i = 1; i < level - 1; i++) {
-      result += crossLeftString;
+    for (let i = 1; i <= level - 1; i++) {
+      result += spaceString;
     }
 
     return result;

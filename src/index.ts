@@ -1,5 +1,6 @@
 // Without libs
 import tree from './tree.json';
+// import tree from './tree_test_1.json';
 import PureSolution from './pure.solution';
 const solution = new PureSolution(tree);
 const result = solution.run();
