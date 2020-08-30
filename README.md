@@ -1,7 +1,8 @@
-# Tree Structure and Algorithm Solution
+# Tree Structure and Algorithm Solutions
 
 Output transform of tree.json should be:
 
+```
 CUSTOMER GROUP
 ├─ BU-FRANCE
 │  ├─ BU-QUAL
@@ -11,3 +12,10 @@ CUSTOMER GROUP
    ├─ BU-QUAL
    ├─ BU-BUSINESS
    └─ BU-HR
+```
+
+## Run
+
+`yarn install`
+
+`yarn start`
