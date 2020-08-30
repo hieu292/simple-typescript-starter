@@ -1,1 +1,11 @@
-console.log('Hello world!');
+// Without libs
+import tree from './tree.json';
+import PureSolution from './pure.solution';
+const solution = new PureSolution(tree);
+const result = solution.run();
+
+// With ts-io and ts-pf
+// Todo: implement here
+
+// eslint-disable-next-line no-undef
+console.log(result);
