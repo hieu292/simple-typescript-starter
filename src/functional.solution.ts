@@ -1,20 +1,28 @@
-import * as t from 'io-ts';
+import * as D from 'io-ts/Decoder'
 import tree from './tree.json';
+import {isLeft, isRight} from "fp-ts/These";
+import {fromNullable} from "fp-ts/Option";
+import {pipe} from "fp-ts/function";
+import {fold} from "fp-ts/Either";
 
-const Node = t.type({
-  id: t.number,
-  name: t.string,
-  children: t.array(t.number),
-  parent: t.number || t.null,
+const Node = D.type({
+  id: D.number,
+  name: D.string,
+  children: D.array(D.number),
+  parent: D.nullable(D.number),
 });
 
-type Node = t.TypeOf<typeof Node>;
+type INode = D.TypeOf<typeof Node>;
 
-const Nodes = t.array(Node);
+const Nodes = D.array(Node);
 
-type Nodes = t.TypeOf<typeof Nodes>;
+type INodes = D.TypeOf<typeof Nodes>;
 
-const nodes = Node.decode(tree);
+const onLeft = (errors: D.DecodeError): string => `${errors} error(s) found`;
+
+const onRight = (s: INodes) => `No errors: ${s}`;
+
+const nodes = pipe(Nodes.decode(tree), fold(onLeft, onRight));
 
 // eslint-disable-next-line no-undef
 console.log('nodes: ', nodes);
